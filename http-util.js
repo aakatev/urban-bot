@@ -12,13 +12,15 @@ module.exports = class HttpUtil {
       setTimeout(() => {
         reject(new Error(`${new Date()} - ${req_timeout}s timeout exceeded`));  
       }, req_timeout*1000);
-      console.log(`https://www.${url}/${path}`);
+
+      // debugging url 
+      // console.log(`https://www.${url}/${path}`);
 
       https.get(`https://www.${url}/${path}`, (res) => {
         // response status check
         if (res.statusCode == 404 ) {
           resolve("404 not found!");
-        } if (res.statusCode < 200 || res.statusCode > 299) {
+        } else if (res.statusCode < 200 || res.statusCode > 299) {
           reject(new Error(`${new Date()} - rejection in httpsGetText with status ${res.statusCode}`));
         }
         // var to store res body
